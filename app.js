@@ -42,6 +42,7 @@ for (let i = 1; i <= 24; i++) {
     <td><input type="number" min="0" name="modelo${i}-cor1" id="modelo${i}-cor1"></td>
     <td><input type="number" min="0" name="modelo${i}-cor2" id="modelo${i}-cor2"></td>
     <td><input type="number" min="0" name="modelo${i}-cor3" id="modelo${i}-cor3"></td>
+    <td><input type="number" min="0" name="modelo${i}-cor4" id="modelo${i}-cor4"></td>
   `;
   tbody.appendChild(tr);
 }
@@ -55,7 +56,7 @@ document.getElementById('product-selection-form').addEventListener('submit', (ev
 
   for (let i = 1; i <= 24; i++) {
     const row = [`Modelo ${i}`];
-    for (let j = 1; j <= 3; j++) {
+    for (let j = 1; j <= 4; j++) {
       const input = document.getElementById(`modelo${i}-cor${j}`);
       row.push(input.value || '0');
     }
