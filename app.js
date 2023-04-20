@@ -66,7 +66,7 @@ document.getElementById('product-selection-form').addEventListener('submit', (ev
   const sheetsAPI = gapi.client.sheets.spreadsheets.values;
   sheetsAPI.append({
     spreadsheetId: SPREADSHEET_ID,
-    range: 'Sheet1',
+    range: 'Página1',
     valueInputOption: 'RAW',
     insertDataOption: 'INSERT_ROWS',
     resource: {
