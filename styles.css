@@ -8,12 +8,17 @@ body {
 }
 
 .video-container {
+  position: fixed;
+  top: 10px; /* Distância do topo da janela */
+  left: 10px; /* Distância da borda esquerda da janela */
+  z-index: 1000; /* Garante que o vídeo fique no topo dos outros elementos */
   flex: 2;
   padding-right: 1rem;
 }
 
 .form-container {
   flex: 1;
+  margin-left: calc(560px + 20px); /* Largura do vídeo mais espaço à esquerda e à direita */
 }
 
 table {
