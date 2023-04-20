@@ -6,13 +6,13 @@ body {
 .container {
   display: flex;
   width: 100%;
-  height: 100vh; /* Limitar a altura do contêiner ao tamanho da janela do navegador */
+  height: 100vh;
 }
 
 .video-container {
-  flex: 2;
+  flex: 1; /* Reduzir o tamanho do vídeo-container */
   padding-right: 1rem;
-  position: -webkit-sticky; /* Para suporte a navegadores antigos */
+  position: -webkit-sticky;
   position: sticky;
   top: 0;
   max-height: 100vh;
