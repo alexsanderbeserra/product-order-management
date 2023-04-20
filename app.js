@@ -1,5 +1,5 @@
 // Substitua YOUR_API_KEY pela sua chave de API do Google
-const API_KEY = 'AIzaSyB_EyY957fbr1LaGTKqKDsDSGD_-cQH3hM';
+const API_KEY = 'a4ac0722b86b4efac11af8a7b519d461eeb5ef22';
 const SPREADSHEET_ID = '1HSwR1dCqCxGl_exE7BK3DY1cFMCsCfwnmsedIfry9cw';
 const YOUTUBE_VIDEO_ID = '-6dSUf8wAHM';
 
