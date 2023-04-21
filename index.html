@@ -1,40 +1,40 @@
 <!DOCTYPE html>
 <html lang="pt">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Seleção de Produtos</title>
-  <link rel="stylesheet" href="styles.css">
-  <script src="https://apis.google.com/js/api.js"></script>
-  <script defer src="app.js"></script>
-</head>
-<body>
-  <div class="container">
-    <div class="video-container">
-      <div id="player"></div>
-    </div>
-    <div class="form-container">
-      <form id="product-selection-form">
-        <label for="store-name">Nome da Loja:</label>
-        <input type="text" id="store-name" name="store-name" required>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Seleção de Produtos</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://apis.google.com/js/api.js"></script>
+    <script defer src="app.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="video-container">
+        <div id="player"></div>
+      </div>
+      <div class="form-container">
+        <form id="product-selection-form">
+          <label for="store-name">Nome da Loja:</label>
+          <input type="text" id="store-name" name="store-name" required />
 
-        <table>
-          <thead>
-            <tr>
-              <th>Modelo</th>
-              <th>Cor 1</th>
-              <th>Cor 2</th>
-              <th>Cor 3</th>
-              <th>Cor 4</th>
-            </tr>
-          </thead>
-          <tbody>
-            <!-- Gere as linhas da tabela dinamicamente com JavaScript -->
-          </tbody>
-        </table>
-        <button type="submit">Enviar Resposta</button>
-      </form>
+          <table>
+            <thead>
+              <tr>
+                <th>Modelo</th>
+                <th>Cor 1</th>
+                <th>Cor 2</th>
+                <th>Cor 3</th>
+                <th>Cor 4</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Gere as linhas da tabela dinamicamente com JavaScript -->
+            </tbody>
+          </table>
+          <button type="submit">Enviar Resposta</button>
+        </form>
+      </div>
     </div>
-  </div>
-</body>
+  </body>
 </html>
