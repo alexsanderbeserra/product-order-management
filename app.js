@@ -21,6 +21,9 @@ function initClient() {
       updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
       document.getElementById("authorize_button").onclick = handleAuthClick;
       document.getElementById("signout_button").onclick = handleSignoutClick;
+
+      // Adicione esta linha para carregar a API do Google Sheets após a inicialização do cliente de autenticação
+      loadClient();
     });
 }
 
