@@ -11,41 +11,29 @@ body {
   flex: 2;
   padding-right: 1rem;
   position: sticky;
-  top: 1rem;
+  top: 0;
 }
 
 .form-container {
   flex: 1;
-  max-width: calc(100% - 640px - 1rem);
-  overflow-x: auto;
-}
-
-label {
-  display: block;
-  margin-bottom: 1rem; /* Adiciona espaço abaixo do rótulo 'Nome da Loja' */
 }
 
 table {
   width: 100%;
-  max-width: 100%;
-  overflow-x: auto;
   border-collapse: collapse;
-  background-color: #f8f8f8;
   margin-bottom: 1rem; /* Adiciona espaço abaixo da tabela */
+  margin-top: 1rem;
 }
 
-thead {
-  display: table;
-  width: 100%;
-  table-layout: fixed;
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  background-color: #f8f8f8;
-}
-
-th, td {
+th,
+td {
   border: 1px solid #ccc;
   padding: 0.5rem;
   text-align: center;
+}
+
+thead {
+  position: sticky;
+  top: 0;
+  background-color: #fff; /* opcional: adiciona uma cor de fundo para diferenciar o cabeçalho da tabela do resto da tabela */
 }
