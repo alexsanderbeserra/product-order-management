@@ -2,63 +2,28 @@ const CLIENT_ID =
   "542180890854-cplqpn895bjrb999tl72glk693al392h.apps.googleusercontent.com";
 const API_KEY = "AIzaSyCuvnTSzvSgTffU9sQ6TRRhD225auxm-54";
 const SCOPES = "https://www.googleapis.com/auth/spreadsheets";
+const DISCOVERY_DOCS = ["https://sheets.googleapis.com/$discovery/rest?version=v4"];
 const SPREADSHEET_ID = "1HSwR1dCqCxGl_exE7BK3DY1cFMCsCfwnmsedIfry9cw";
-const YOUTUBE_VIDEO_ID = "-6dSUf8wAHM";
 
-function loadClient() {
-  gapi.client.setApiKey(API_KEY);
-  return gapi.client
-    .load("https://sheets.googleapis.com/$discovery/rest?version=v4")
+function initClient() {
+  gapi.client
+    .init({
+      apiKey: API_KEY,
+      clientId: CLIENT_ID,
+      discoveryDocs: DISCOVERY_DOCS,
+      scope: SCOPES,
+    })
     .then(
       () => {
-        console.log("GAPI client loaded for API");
-        gapi.auth2
-          .init({
-            client_id: CLIENT_ID,
-            scope: SCOPES,
-          })
-          .then(() => {
-            const authInstance = gapi.auth2.getAuthInstance();
-            const authorizeButton = document.getElementById("authorize_button");
-            const signoutButton = document.getElementById("signout_button");
-            authInstance.isSignedIn.listen(updateSigninStatus);
-            updateSigninStatus(authInstance.isSignedIn.get());
-            authorizeButton.onclick = authInstance.signIn;
-            signoutButton.onclick = authInstance.signOut;
-          });
+        console.log("GAPI client initialized.");
       },
       (error) => {
-        console.error("Error loading GAPI client for API:", error);
+        console.error("Error initializing GAPI client:", error);
       }
     );
 }
 
-function updateSigninStatus(isSignedIn) {
-  if (isSignedIn) {
-    document.getElementById("authorize_button").style.display = "none";
-    document.getElementById("signout_button").style.display = "block";
-  } else {
-    document.getElementById("authorize_button").style.display = "block";
-    document.getElementById("signout_button").style.display = "none";
-  }
-}
-
-gapi.load("client", loadClient);
-
-function onYouTubeIframeAPIReady() {
-  new YT.Player("player", {
-    height: "360",
-    width: "640",
-    videoId: YOUTUBE_VIDEO_ID,
-  });
-}
-
-(function () {
-  const tag = document.createElement("script");
-  tag.src = "https://www.youtube.com/iframe_api";
-  const firstScriptTag = document.getElementsByTagName("script")[0];
-  firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-})();
+gapi.load("client", initClient);
 
 const tbody = document.querySelector("tbody");
 for (let i = 1; i <= 24; i++) {
