@@ -7,13 +7,6 @@ body {
   width: 100%;
 }
 
-.video-container {
-  flex: 2;
-  padding-right: 1rem;
-  position: sticky;
-  top: 0;
-}
-
 .form-container {
   flex: 1;
 }
@@ -21,7 +14,7 @@ body {
 table {
   width: 100%;
   border-collapse: collapse;
-  margin-bottom: 1rem; /* Adiciona espaço abaixo da tabela */
+  margin-bottom: 1rem;
   margin-top: 1rem;
 }
 
@@ -33,7 +26,5 @@ td {
 }
 
 thead {
-  position: sticky;
-  top: 0;
-  background-color: #fff; /* opcional: adiciona uma cor de fundo para diferenciar o cabeçalho da tabela do resto da tabela */
+  background-color: #fff;
 }
