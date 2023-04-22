@@ -1,5 +1,5 @@
 const clientId = "542180890854-cplqpn895bjrb999tl72glk693al392h.apps.googleusercontent.com";
-const apiKey = "a4ac0722b86b4efac11af8a7b519d461eeb5ef22";
+const apiKey = "AIzaSyCuvnTSzvSgTffU9sQ6TRRhD225auxm-54";
 const scopes = "https://www.googleapis.com/auth/spreadsheets";
 const SPREADSHEET_ID = "1HSwR1dCqCxGl_exE7BK3DY1cFMCsCfwnmsedIfry9cw";
 const YOUTUBE_VIDEO_ID = "-6dSUf8wAHM";
