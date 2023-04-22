@@ -1,29 +1,81 @@
-const CLIENT_ID =
+const clientId =
   "542180890854-cplqpn895bjrb999tl72glk693al392h.apps.googleusercontent.com";
-const API_KEY = "AIzaSyCuvnTSzvSgTffU9sQ6TRRhD225auxm-54";
-const SCOPES = "https://www.googleapis.com/auth/spreadsheets";
-const DISCOVERY_DOCS = ["https://sheets.googleapis.com/$discovery/rest?version=v4"];
+const apiKey = "AIzaSyChP-IgN8D93wNfuXYGVK6T7ST6UJ9XUqc";
+const scopes = "https://www.googleapis.com/auth/spreadsheets";
 const SPREADSHEET_ID = "1HSwR1dCqCxGl_exE7BK3DY1cFMCsCfwnmsedIfry9cw";
+const YOUTUBE_VIDEO_ID = "-6dSUf8wAHM";
+
+function handleClientLoad() {
+  gapi.load("client:auth2", initClient);
+}
 
 function initClient() {
   gapi.client
     .init({
-      apiKey: API_KEY,
-      clientId: CLIENT_ID,
-      discoveryDocs: DISCOVERY_DOCS,
-      scope: SCOPES,
+      apiKey: apiKey,
+      clientId: clientId,
+      scope: scopes,
     })
+    .then(function () {
+      gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
+      updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
+      document.getElementById("authorize_button").onclick = handleAuthClick;
+      document.getElementById("signout_button").onclick = handleSignoutClick;
+
+      loadClient();
+    });
+}
+
+function updateSigninStatus(isSignedIn) {
+  if (isSignedIn) {
+    document.getElementById("authorize_button").style.display = "none";
+    document.getElementById("signout_button").style.display = "block";
+  } else {
+    document.getElementById("authorize_button").style.display = "block";
+    document.getElementById("signout_button").style.display = "none";
+  }
+}
+
+function handleAuthClick(event) {
+  gapi.auth2.getAuthInstance().signIn();
+}
+
+function handleSignoutClick(event) {
+  gapi.auth2.getAuthInstance().signOut();
+}
+
+handleClientLoad();
+
+function loadClient() {
+  gapi.client.setApiKey(apiKey);
+  return gapi.client
+    .load("https://sheets.googleapis.com/$discovery/rest?version=v4")
     .then(
       () => {
-        console.log("GAPI client initialized.");
+        console.log("GAPI client loaded for API");
       },
       (error) => {
-        console.error("Error initializing GAPI client:", error);
+        console.error("Error loading GAPI client for API", error);
       }
     );
 }
 
-gapi.load("client", initClient);
+gapi.load("client", loadClient);
+
+function onYouTubeIframeAPIReady() {
+  new YT.Player("player", {
+    height: "360",
+    width: "640",
+    videoId: YOUTUBE_VIDEO_ID,
+  });
+}
+
+(function () {
+  var tag = document.createElement("script");
+  tag.src = "https://www.youtube.com/iframe_api";
+  var firstScriptTag = document.getElementsByTagName("script")[0];
+  firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+})();
 
 const tbody = document.querySelector("tbody");
 for (let i = 1; i <= 24; i++) {
@@ -34,7 +86,7 @@ for (let i = 1; i <= 24; i++) {
     <td><input type="number" min="0" name="modelo${i}-cor2" id="modelo${i}-cor2"></td>
     <td><input type="number" min="0" name="modelo${i}-cor3" id="modelo${i}-cor3"></td>
     <td><input type="number" min="0" name="modelo${i}-cor4" id="modelo${i}-cor4"></td>
-  `;
+`;
   tbody.appendChild(tr);
 }
 
