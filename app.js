@@ -1,11 +1,10 @@
-const clientId =
-  "542180890854-cplqpn895bjrb999tl72glk693al392h.apps.googleusercontent.com";
+const clientId = "542180890854-cplqpn895bjrb999tl72glk693al392h.apps.googleusercontent.com";
 const scopes = "https://www.googleapis.com/auth/spreadsheets";
 const SPREADSHEET_ID = "1HSwR1dCqCxGl_exE7BK3DY1cFMCsCfwnmsedIfry9cw";
 const YOUTUBE_VIDEO_ID = "-6dSUf8wAHM";
 
 function handleClientLoad() {
-  gapi.load("client:auth2,picker", initClient);
+  gapi.load("client:auth2", initClient);
 }
 
 function initClient() {
@@ -29,6 +28,7 @@ function updateSigninStatus(isSignedIn) {
   if (isSignedIn) {
     document.getElementById("authorize_button").style.display = "none";
     document.getElementById("signout_button").style.display = "block";
+    submitForm();
   } else {
     document.getElementById("authorize_button").style.display = "block";
     document.getElementById("signout_button").style.display = "none";
@@ -66,25 +66,24 @@ for (let i = 1; i <= 24; i++) {
   tbody.appendChild(tr);
 }
 
-document
-  .getElementById("product-selection-form")
-  .addEventListener("submit", (event) => {
-    event.preventDefault();
-    const storeName = document.getElementById("store-name").value;
-    const values = [[storeName]];
+function submitForm() {
+  document
+    .getElementById("product-selection-form")
+    .addEventListener("submit", (event) => {
+      event.preventDefault();
+      const storeName = document.getElementById("store-name").value;
+      const values = [[storeName]];
 
-    for (let i = 1; i <= 24; i++) {
-      const row = [`Modelo ${i}`];
-      for (let j = 1; j <= 4; j++) {
-        const input = document.getElementById(`modelo${i}-cor${j}`);
-        row.push(input.value || "0");
+      for (let i = 1; i <= 24; i++) {
+        const row = [`Modelo ${i}`];
+        for (let j = 1; j <= 4; j++) {
+          const input = document.getElementById(`modelo${i}-cor${j}`);
+          row.push(input.value || "0");
+        }
+        values.push(row);
       }
-      values.push(row);
-    }
 
-    const sheetsAPI = gapi.client.sheets.spreadsheets.values;
-    sheetsAPI
-      .append({
+      const sheetsAPI = gapi.client.sheets.spreadsheets.values      .append({
         spreadsheetId: SPREADSHEET_ID,
         range: "Página1",
         valueInputOption: "RAW",
@@ -107,3 +106,5 @@ document
         }
       );
   });
+}
+
