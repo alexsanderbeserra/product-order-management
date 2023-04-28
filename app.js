@@ -76,35 +76,42 @@ function submitForm() {
 
       for (let i = 1; i <= 24; i++) {
         const row = [`Modelo ${i}`];
-        for (let j = 1; j <= 4; j++) {
+        for (let j = 1; j <=         4; j++) {
           const input = document.getElementById(`modelo${i}-cor${j}`);
           row.push(input.value || "0");
         }
         values.push(row);
       }
 
-      const sheetsAPI = gapi.client.sheets.spreadsheets.values      .append({
-        spreadsheetId: SPREADSHEET_ID,
-        range: "Página1",
-        valueInputOption: "RAW",
-        insertDataOption: "INSERT_ROWS",
-        resource: {
-          values: values,
-        },
-      })
-      .then(
-        (response) => {
-          console.log("Resposta da API do Google Sheets:", response.result);
-          alert("Resposta enviada com sucesso!");
-        },
-        (error) => {
-          console.error(
-            "Erro ao enviar dados para o Google Sheets:",
-            error.result.error
-          );
-          alert("Erro ao enviar a resposta. Por favor, tente novamente.");
-        }
-      );
-  });
+      const sheetsAPI = gapi.client.sheets.spreadsheets.values;
+      const accessToken = gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().access_token;
+
+      sheetsAPI
+        .append({
+          spreadsheetId: SPREADSHEET_ID,
+          range: "Página1",
+          valueInputOption: "RAW",
+          insertDataOption: "INSERT_ROWS",
+          resource: {
+            values: values,
+          },
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        })
+        .then(
+          (response) => {
+            console.log("Resposta da API do Google Sheets:", response.result);
+            alert("Resposta enviada com sucesso!");
+          },
+          (error) => {
+            console.error(
+              "Erro ao enviar dados para o Google Sheets:",
+              error.result.error
+            );
+            alert("Erro ao enviar a resposta. Por favor, tente novamente.");
+          }
+        );
+    });
 }
 
