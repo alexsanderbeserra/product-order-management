@@ -1,28 +1,27 @@
 const clientId =
   "542180890854-cplqpn895bjrb999tl72glk693al392h.apps.googleusercontent.com";
-const apiKey = "AIzaSyChP-IgN8D93wNfuXYGVK6T7ST6UJ9XUqc";
 const scopes = "https://www.googleapis.com/auth/spreadsheets";
 const SPREADSHEET_ID = "1HSwR1dCqCxGl_exE7BK3DY1cFMCsCfwnmsedIfry9cw";
 const YOUTUBE_VIDEO_ID = "-6dSUf8wAHM";
 
 function handleClientLoad() {
-  gapi.load("client:auth2", initClient);
+  gapi.load("client:auth2,picker", initClient);
 }
 
 function initClient() {
   gapi.client
     .init({
-      apiKey: apiKey,
       clientId: clientId,
       scope: scopes,
+      discoveryDocs: [
+        "https://sheets.googleapis.com/$discovery/rest?version=v4",
+      ],
     })
     .then(function () {
       gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
       updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
       document.getElementById("authorize_button").onclick = handleAuthClick;
       document.getElementById("signout_button").onclick = handleSignoutClick;
-
-      loadClient();
     });
 }
 
@@ -46,22 +45,6 @@ function handleSignoutClick(event) {
 
 handleClientLoad();
 
-function loadClient() {
-  gapi.client.setApiKey(apiKey);
-  return gapi.client
-    .load("https://sheets.googleapis.com/$discovery/rest?version=v4")
-    .then(
-      () => {
-        console.log("GAPI client loaded for API");
-      },
-      (error) => {
-        console.error("Error loading GAPI client for API", error);
-      }
-    );
-}
-
-gapi.load("client", loadClient);
-
 function onYouTubeIframeAPIReady() {
   new YT.Player("player", {
     height: "360",
@@ -69,13 +52,6 @@ function onYouTubeIframeAPIReady() {
     videoId: YOUTUBE_VIDEO_ID,
   });
 }
-
-(function () {
-  var tag = document.createElement("script");
-  tag.src = "https://www.youtube.com/iframe_api";
-  var firstScriptTag = document.getElementsByTagName("script")[0];
-  firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-})();
 
 const tbody = document.querySelector("tbody");
 for (let i = 1; i <= 24; i++) {
