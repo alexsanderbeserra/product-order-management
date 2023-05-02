@@ -25,30 +25,15 @@ function initClient() {
     });
 }
 
-function setAccessToken() {
-  const token = gapi.auth.getToken();
-  if (token) {
-    gapi.client.setToken(token);
-  } else {
-    console.error("Token de acesso não encontrado.");
-  }
-}
-
-
 function updateSigninStatus(isSignedIn) {
   if (isSignedIn) {
-    gapi.auth2.getAuthInstance().currentUser.get().reloadAuthResponse().then(() => {
-      setAccessToken();
-      document.getElementById("authorize_button").style.display = "none";
-      document.getElementById("signout_button").style.display = "block";
-    });
+    document.getElementById("authorize_button").style.display = "none";
+    document.getElementById("signout_button").style.display = "block";
   } else {
     document.getElementById("authorize_button").style.display = "block";
     document.getElementById("signout_button").style.display = "none";
   }
 }
-
-
 
 function handleAuthClick(event) {
   gapi.auth2.getAuthInstance().signIn();
@@ -107,6 +92,9 @@ document
         resource: {
           values: values,
         },
+        headers: {
+          Authorization: `Bearer ${gapi.auth.getToken().access_token}`,
+        },
       })
       .then(
         (response) => {
@@ -122,4 +110,3 @@ document
         }
       );
   });
-
