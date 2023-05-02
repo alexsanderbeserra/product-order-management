@@ -82,33 +82,29 @@ document
       values.push(row);
     }
 
-const user = gapi.auth2.getAuthInstance().currentUser.get();
-const accessToken = user.getAuthResponse().access_token;
-console.log("Access Token:", accessToken);
+    const accessToken = gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().access_token;
+    console.log("Access Token:", accessToken);
 
-
-     sheetsAPI
-  .append({
-    spreadsheetId: SPREADSHEET_ID,
-    range: "Página1",
-    valueInputOption: "RAW",
-    insertDataOption: "INSERT_ROWS",
-    resource: {
-      values: values,
-    },
-  })
-  .then(
-    (response) => {
-      console.log("Resposta da API do Google Sheets:", response.result);
-      alert("Resposta enviada com sucesso!");
-    },
-    (error) => {
-      console.error(
-        "Erro ao enviar dados para o Google Sheets:",
-        error.result.error
-      );
-      alert("Erro ao enviar a resposta. Por favor, tente novamente.");
-    }
-  );
-
-    });
+    gapi.client.sheets.spreadsheets.values.append({
+      spreadsheetId: SPREADSHEET_ID,
+      range: "Página1",
+      valueInputOption: "RAW",
+      insertDataOption: "INSERT_ROWS",
+      resource: {
+        values: values,
+      },
+    })
+    .then(
+      (response) => {
+        console.log("Resposta da API do Google Sheets:", response.result);
+        alert("Resposta enviada com sucesso!");
+      },
+      (error) => {
+        console.error(
+          "Erro ao enviar dados para o Google Sheets:",
+          error.result.error
+        );
+        alert("Erro ao enviar a resposta. Por favor, tente novamente.");
+      }
+    );
+  });
