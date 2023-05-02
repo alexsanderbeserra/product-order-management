@@ -22,15 +22,16 @@ function initClient() {
       updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
       document.getElementById("authorize_button").onclick = handleAuthClick;
       document.getElementById("signout_button").onclick = handleSignoutClick;
-
-      gapi.client.setToken(
-        gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse()
-      );
     });
+}
+
+function setAccessToken() {
+  gapi.client.setToken(gapi.auth.getToken());
 }
 
 function updateSigninStatus(isSignedIn) {
   if (isSignedIn) {
+    setAccessToken();
     document.getElementById("authorize_button").style.display = "none";
     document.getElementById("signout_button").style.display = "block";
   } else {
@@ -38,6 +39,7 @@ function updateSigninStatus(isSignedIn) {
     document.getElementById("signout_button").style.display = "none";
   }
 }
+
 
 function handleAuthClick(event) {
   gapi.auth2.getAuthInstance().signIn();
