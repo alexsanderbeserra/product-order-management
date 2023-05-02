@@ -1,5 +1,4 @@
-const clientId =
-  "542180890854-cplqpn895bjrb999tl72glk693al392h.apps.googleusercontent.com";
+const clientId = "542180890854-cplqpn895bjrb999tl72glk693al392h.apps.googleusercontent.com";
 const scopes = "https://www.googleapis.com/auth/spreadsheets";
 const SPREADSHEET_ID = "1HSwR1dCqCxGl_exE7BK3DY1cFMCsCfwnmsedIfry9cw";
 const YOUTUBE_VIDEO_ID = "-6dSUf8wAHM";
@@ -22,6 +21,7 @@ function initClient() {
       updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
       document.getElementById("authorize_button").onclick = handleAuthClick;
       document.getElementById("signout_button").onclick = handleSignoutClick;
+      console.log("Auth Instance:", gapi.auth2.getAuthInstance());
     });
 }
 
@@ -82,31 +82,34 @@ document
       values.push(row);
     }
 
-    const sheetsAPI = gapi.client.sheets.spreadsheets.values;
-    sheetsAPI
-      .append({
-        spreadsheetId: SPREADSHEET_ID,
-        range: "Página1",
-        valueInputOption: "RAW",
-        insertDataOption: "INSERT_ROWS",
-        resource: {
-          values: values,
-        },
-        headers: {
-          Authorization: `Bearer ${gapi.auth.getToken().access_token}`,
-        },
-      })
-      .then(
-        (response) => {
-          console.log("Resposta da API do Google Sheets:", response.result);
-          alert("Resposta enviada com sucesso!");
-        },
-        (error) => {
-          console.error(
-            "Erro ao enviar dados para o Google Sheets:",
-            error.result.error
-          );
-          alert("Erro ao enviar a resposta. Por favor, tente novamente.");
-        }
-      );
-  });
+      console.log("Access Token:", gapi.auth.getToken().access_token);
+
+      const sheetsAPI = gapi.client.sheets.spreadsheets.values;
+      sheetsAPI
+        .append({
+          spreadsheetId: SPREADSHEET_ID,
+          range: "Página1",
+          valueInputOption: "RAW",
+          insertDataOption: "INSERT_ROWS",
+          resource: {
+            values: values,
+          },
+          headers: {
+            Authorization: `Bearer ${gapi.auth.getToken().access_token}`,
+          },
+        })
+        .then(
+          (response) => {
+            console.log("Resposta da API do Google Sheets:", response.result);
+            alert("Resposta enviada com sucesso!");
+          },
+          (error) => {
+            console.error(
+              "Erro ao enviar dados para o Google Sheets:",
+              error.result.error
+            );
+            alert("Erro ao enviar a resposta. Por favor, tente novamente.");
+          }
+        );
+    });
+
